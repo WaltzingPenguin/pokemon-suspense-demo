@@ -1,4 +1,4 @@
-<script>
+<script lang='ts'>
 import './styles.css'
 </script>
 
@@ -7,9 +7,14 @@ import './styles.css'
 </main>
 
 <footer>
-  Powered by <a href="https://pokeapi.co/">https://pokeapi.co/</a>
-  &bull;
-  <a href="https://github.com/WaltzingPenguin/pokemon-suspense-demo">GitHub Repository</a>
+  <ul>
+    <li>
+      <a href="https://github.com/WaltzingPenguin/pokemon-suspense-demo">GitHub Repository</a>
+    </li>
+    <li>
+      Powered by <a href="https://pokeapi.co/">https://pokeapi.co/</a>
+    </li>
+  </ul>
 </footer>
 
 <style>
@@ -22,9 +27,22 @@ a {
 footer {
   color: #888;
   font-size: 85%;
+  margin-top: 1em;
   text-align: center;
 }
-p {
+ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
+}
+@media (min-width: 35em) {
+  ul {
+    display: flex;
+    justify-content: center;
+  }
+  li:not(:first-child)::before {
+    content: "•";
+    margin: 0 .3em;
+  }
 }
 </style>
