@@ -1,13 +1,23 @@
 <script lang="ts">
+import { createEventDispatcher } from 'svelte'
 import { derived, writable } from 'svelte/store'
+import debounce from './debounce';
 import { STATUS, setContext } from './suspense-list-context'
 
 export let collapse = false
 
+const dispatch = createEventDispatcher()
+const dispatchLoad = debounce(() => {
+  if ($next === $children.length) {
+    dispatch('load')
+  }
+})
+
 const children = writable([])
-const loading = derived(children, $children => {
+const next = derived(children, $children => {
 	const index = $children.findIndex(i => !i)
 	if (index === -1) {
+    dispatchLoad()
 		return $children.length
 	} else {
 		return index
@@ -15,7 +25,6 @@ const loading = derived(children, $children => {
 })
 
 setContext(register)
-
 function register () {
   const index = $children.length
   $children[index] = false
@@ -24,9 +33,9 @@ function register () {
     $children[index] = true
   }
 
-  const isReady = derived(loading, $loading => {
-    if (index < $loading) return STATUS.READY
-    if (index === $loading) return STATUS.LOADING
+  const isReady = derived(next, $next => {
+    if (index < $next) return STATUS.READY
+    if (index === $next) return STATUS.LOADING
     return (collapse ? STATUS.HIDDEN : STATUS.LOADING)
   })
 

@@ -17,6 +17,7 @@ $: pokemon = getPokemon(url)
 <style>
 div {
   display: grid;
+  grid-gap: .5em;
   grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
 }
 </style>

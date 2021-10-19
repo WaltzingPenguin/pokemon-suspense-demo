@@ -1,12 +1,11 @@
 <script lang="ts">
 import { getVariety, getPokemon } from '../_data'
-import { waitForImage } from '../_util'
+import SuspendImage from './suspend-image.svelte'
 
 export let url: string
 
 $: pokemon = getPokemon(url)
 $: variety = getVariety($pokemon?.default_variety)
-const onLoad = waitForImage()
 
 function getId (url: string) {
   return url.split('https://pokeapi.co/api/v2/pokemon-species/')[1]
@@ -15,7 +14,7 @@ function getId (url: string) {
 
 <a href="/{ getId(url) }">
   <figure>
-    <img alt="" src={ $variety?.image } on:load={ onLoad } />
+    <SuspendImage alt="" src={ $variety?.image } />
     <figcaption>{ $pokemon?.name }</figcaption>
   </figure>
 </a>
@@ -32,10 +31,6 @@ a:focus,
 a:hover {
   background-color: #F1F1F4;
   border-color: #CCD;
-}
-img {
-  height: 96px;
-  width: 96px;
 }
 figure {
   margin: 0;

@@ -23,7 +23,9 @@ type PendingStore = Readable<{
 }>
 let pending: PendingStore[] = []
 $: pending_values = derived(pending, $pending => $pending)
+
 $: error = $pending_values.find(item => item.error)?.error
+$: error && dispatch('error', error)
 
 // Debounce to prevent dispatching multiple events when
 // requests are chained.
@@ -33,7 +35,6 @@ const dispatchLoaded = debounce(() => {
     onFinished()
   }
 })
-
 $: loading = !is_browser || $pending_values.some(item => !item.data)
 $: !loading && !error && dispatchLoaded()
 
@@ -84,9 +85,11 @@ function suspendPromise<T> (promise: Promise<T>) {
     <slot name="loading"></slot>
   {/if}
 
-  <div hidden={ loading || $list_state !== LIST_STATUS.READY }>
-    <slot />	
-  </div>
+  {#if is_browser}
+    <div hidden={ loading || $list_state !== LIST_STATUS.READY }>
+      <slot { suspend } />	
+    </div>
+  {/if}
 {/if}
 
 <style>

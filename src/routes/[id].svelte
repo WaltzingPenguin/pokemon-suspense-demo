@@ -1,8 +1,8 @@
 <script lant="ts">
 import Header from './_components/header.svelte'
 import ErrorDisplay from './_components/error.svelte'
-import EvolvesInto from './_components/evolves_into.svelte'
-import EvolvesFrom from './_components/evolves_from.svelte'
+import EvolvesInto from './_components/evolves-into.svelte'
+import EvolvesFrom from './_components/evolves-from.svelte'
 import LoadingCircle from './_components/loading-circle.svelte'
 import LoadingDots from './_components/loading-dots.svelte'
 import { Suspense, SuspenseList } from '$lib/suspsense'
