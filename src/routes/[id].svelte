@@ -19,21 +19,21 @@ $: url = `https://pokeapi.co/api/v2/pokemon-species/${ id }/`
 {#key url}
   <SuspenseList collapse>
     <Suspense>
+      <Header { url } />
       <LoadingCircle slot="loading" />
       <ErrorDisplay slot="error" />
-      <Header { url } />
     </Suspense>
 
     <Suspense>
-      <LoadingDots slot="loading" />
-      <ErrorDisplay slot="error" />
       <EvolvesFrom { url } />
+      <LoadingDots slot="loading" />
+      <ErrorDisplay slot="error" />
     </Suspense>
 
     <Suspense>
+      <EvolvesInto { url } />
       <LoadingDots slot="loading" />
       <ErrorDisplay slot="error" />
-      <EvolvesInto { url } />
     </Suspense> 
   </SuspenseList>
 {/key}

@@ -19,11 +19,13 @@ body {
 }
 
 h1 {
+  font-size: 150%;
   line-height: 1.25;
+  margin: 0;
 }
 h2 {
   font-size: 120%;
-  margin: 0 0 1rem;
+  margin: 0;
 }
 section {
   margin: 1rem 0;

@@ -5,7 +5,12 @@ import './styles.css'
 <main>
   <slot />
 </main>
-<p>Powered by <a href="https://pokeapi.co/">https://pokeapi.co/</a></p>
+
+<footer>
+  Powered by <a href="https://pokeapi.co/">https://pokeapi.co/</a>
+  &bull;
+  <a href="https://github.com/WaltzingPenguin/pokemon-suspense-demo">GitHub Repository</a>
+</footer>
 
 <style>
 main {
@@ -14,9 +19,12 @@ main {
 a {
   color: inherit;
 }
-p {
+footer {
   color: #888;
   font-size: 85%;
   text-align: center;
+}
+p {
+  margin: 0;
 }
 </style>

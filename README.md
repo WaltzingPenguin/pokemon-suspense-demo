@@ -1,38 +1,21 @@
-# create-svelte
+# Suspense and SWR in Svelte
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+This is a demo of using [Suspense](https://reactjs.org/docs/concurrent-mode-suspense.html) and [SWR](https://swr.vercel.app/) inspired techniques inside a Svelte application.
 
-## Creating a project
+## Benefits
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Data Fetching
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
+Components can independently declare the data that they need.  Because there is a central cache, duplicate requests are not issued and every component gets access to the same data.  By using stores, request chains are easier to reason about than traditional promise based chains.
 
-# create a new project in my-app
-npm init svelte@next my-app
-```
+See the [Image component](src/routes/_components/image.svelte) for an example of this in action.
 
-> Note: the `@next` is temporary
+### Loading Screens
 
-## Developing
+In addition to fetching data, components can communicate up the component tree when they are "ready".  This allows us to break up the application and deliberately design loading screens without having to know exactly what data is needed.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+The [Page component](src/routes/[id].svelte) demonstrates this.  It will display the loading placeholder until the Header component has finished loading.  In this case, that means waiting for two API fetch requests and one image to load but the Page component does not know about this.  In the future, the requirements for Header could be changed completely without ever touching the loading indicator logic.
 
-```bash
-npm run dev
+## Status
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+This is not production tested or split properly to be turned into an npm package.  At this stage, this is simply a proof of concept to demonstrate possibilities and discuss API surface.

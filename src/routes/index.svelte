@@ -12,7 +12,10 @@ const favorites = [1, 4, 25, 133, 129, 79]
   <title>My Favorite Pokemon</title>
 </svelte:head>
 
-<h1>My Favorite Pokemon</h1>
+<h1>Suspense and SWR</h1>
+<p>This website is a demo of using Suspense and SWR inspired techniques within the Svelte language.  Respository is available at <a href="https://github.com/WaltzingPenguin/pokemon-suspense-demo">https://github.com/WaltzingPenguin/pokemon-suspense-demo</a></p>
+
+<h2>My Favorite Pokemon</h2>
 
 <SuspenseList collapse>
   <ul>
@@ -28,6 +31,13 @@ const favorites = [1, 4, 25, 133, 129, 79]
 </SuspenseList>
 
 <style>
+a {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 ul {
   display: grid;
   grid-gap: .5em;
