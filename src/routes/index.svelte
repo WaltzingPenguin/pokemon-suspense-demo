@@ -1,6 +1,5 @@
 <script>
-import SuspenseList from '$lib/suspsense/suspense-list.svelte';
-import Suspense from '$lib/suspsense/suspense.svelte';
+import { Suspense } from '$lib/suspsense'
 
 import Image from './_components/image.svelte'
 import LoadingCircle from './_components/loading-circle.svelte';
@@ -17,18 +16,17 @@ const favorites = [1, 4, 25, 133, 129, 79]
 
 <h2>My Favorite Pokemon</h2>
 
-<SuspenseList collapse>
+<Suspense>
+  <LoadingCircle slot="loading" />
+
   <ul>
     {#each favorites as id}
       <li>
-        <Suspense>
-          <LoadingCircle slot="loading" />
-          <Image url="https://pokeapi.co/api/v2/pokemon-species/{ id }/" />
-        </Suspense>
+        <Image url="https://pokeapi.co/api/v2/pokemon-species/{ id }/" />
       </li>
     {/each}
   </ul>
-</SuspenseList>
+</Suspense>
 
 <style>
 a {
