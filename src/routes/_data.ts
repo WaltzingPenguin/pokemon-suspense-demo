@@ -4,7 +4,7 @@ import type { Readable } from 'svelte/store'
 
 
 export function getEvolutions (url: string, species_id: string) {
-  function getActiveLink (chain, species_id) {
+  function getActiveLink (chain, species_id: string) {
     if (chain.species.name === species_id) {
       return chain.evolves_to
     }
@@ -29,19 +29,16 @@ export function getEvolutions (url: string, species_id: string) {
 
 export function getPokemon (url: string) {
   const { data } = useSWR(url, {
-    fetcher (url) {
-      return fetch(url)
-      .then(response => response.json())
-      .then(species => {
-        return {
-          id: species.name,
-          default_variety: species.varieties.find(item => item.is_default).pokemon.url,
-          description: species.flavor_text_entries.find(item => item.language.name === 'en').flavor_text.replace('', ' '),
-          evolution_chain: species.evolution_chain.url,
-          evolves_from: species.evolves_from_species?.url,
-          name: species.names.find(item => item.language.name === 'en').name
-        }
-      })
+    async fetcher (url) {
+      const species = await fetch(url).then(response => response.json())
+      return {
+        id: species.name,
+        default_variety: species.varieties.find(item => item.is_default).pokemon.url,
+        description: species.flavor_text_entries.find(item => item.language.name === 'en').flavor_text.replace('', ' '),
+        evolution_chain: species.evolution_chain.url,
+        evolves_from: species.evolves_from_species?.url,
+        name: species.names.find(item => item.language.name === 'en').name
+      }
     },
     suspend: true
   })
@@ -51,14 +48,11 @@ export function getPokemon (url: string) {
 
 export function getVariety (url: string) {
   const { data } = useSWR(url, {
-    fetcher (url) {
-      return fetch(url)
-      .then(response => response.json())
-      .then(variety => {
-        return {
-          image: variety.sprites.front_default
-        }
-      })  
+    async fetcher (url) {
+      const variety = await fetch(url).then(response => response.json())
+      return {
+        image: variety.sprites.front_default
+      }
     }
   })
   return data
