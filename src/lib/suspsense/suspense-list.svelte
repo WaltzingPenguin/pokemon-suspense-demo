@@ -13,7 +13,7 @@ const dispatchLoad = debounce(() => {
   }
 })
 
-const children = writable([])
+const children = writable([] as boolean[])
 const next = derived(children, $children => {
 	const index = $children.findIndex(i => !i)
 	if (index === -1) {

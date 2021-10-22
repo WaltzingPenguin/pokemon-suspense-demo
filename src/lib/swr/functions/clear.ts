@@ -1,5 +1,9 @@
 import { cache } from '../cache'
 
-export function clear() {
-  cache.clear()
+export function clear(key?: string) {
+  if (key) {
+    cache.delete(key)
+  } else {
+    cache.clear()
+  }
 }

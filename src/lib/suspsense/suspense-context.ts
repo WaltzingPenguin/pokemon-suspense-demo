@@ -5,16 +5,16 @@ const key = {}
 
 
 function mock<T extends Promise<unknown>> (data: T) : T
-function mock<T extends Readable<unknown>> (data: T, error?: Readable<Error>) : T
+function mock<T extends Readable<unknown>> (data: T, error?: Readable<Error | undefined>) : T
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function mock (data, error = undefined) {
+function mock (data: unknown, error = undefined) {
   return data
 }
+
+
 export function createSuspense () {
   const suspend = (getContext(key) as typeof mock)
-  if (suspend) {
-    return suspend
-  }
+  if (suspend) return suspend
   
   console.warn("createSuspense called outside of a Suspense boundary")
   return mock

@@ -1,3 +1,3 @@
 export { clear } from './functions/clear'
-export { mutate } from './functions/mutate'
-export { useSWR } from './functions/useSWR'
+export { update } from './functions/update'
+export { swr } from './functions/swr'

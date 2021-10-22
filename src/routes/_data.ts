@@ -1,5 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { derived } from 'svelte/store'
-import { useSWR } from '$lib/swr'
+import { swr } from '$lib/swr'
 import type { Readable } from 'svelte/store'
 
 
@@ -10,12 +12,10 @@ export function getEvolutions (url: string, species_id: string) {
     }
   
     const link = chain.evolves_to.find(item => item.species.name === species_id)
-    if (link) {
-      return link.evolves_to
-    }
+    return link?.evolves_to
   }
 
-  const { data } = useSWR(url, {
+  const { data } = swr(url, {
     suspend: true
   })
   return derived(data, $data => {
@@ -23,23 +23,25 @@ export function getEvolutions (url: string, species_id: string) {
 
     const link = getActiveLink($data.chain, species_id)
     return link?.map(item => item.species.url)
-  }) as Readable<undefined | string[]>
+  }) as Readable<string[] | undefined>
 }
 
 
 export function getPokemon (url: string) {
-  const { data } = useSWR(url, {
-    async fetcher (url) {
-      const species = await fetch(url).then(response => response.json())
-      return {
-        id: species.name,
-        default_variety: species.varieties.find(item => item.is_default).pokemon.url,
-        description: species.flavor_text_entries.find(item => item.language.name === 'en').flavor_text.replace('', ' '),
-        evolution_chain: species.evolution_chain.url,
-        evolves_from: species.evolves_from_species?.url,
-        name: species.names.find(item => item.language.name === 'en').name
-      }
-    },
+  const fetcher = async url => {
+    const species = await fetch(url).then(r => r.json())
+    return {
+      id: species.name,
+      default_variety: species.varieties.find(item => item.is_default).pokemon.url,
+      description: species.flavor_text_entries.find(item => item.language.name === 'en').flavor_text.replace('', ' '),
+      evolution_chain: species.evolution_chain.url,
+      evolves_from: species.evolves_from_species?.url,
+      name: species.names.find(item => item.language.name === 'en').name
+    }
+  }
+
+  const { data } = swr(url, {
+    fetcher,
     suspend: true
   })
   return data
@@ -47,13 +49,16 @@ export function getPokemon (url: string) {
 
 
 export function getVariety (url: string) {
-  const { data } = useSWR(url, {
-    async fetcher (url) {
-      const variety = await fetch(url).then(response => response.json())
-      return {
-        image: variety.sprites.front_default
-      }
+  const fetcher = async url => {
+    const variety = await fetch(url).then(r => r.json())
+    return {
+      image: variety.sprites.front_default
     }
+  }
+
+  const { data } = swr(url, {
+    fetcher,
+    suspend: true
   })
   return data
 }

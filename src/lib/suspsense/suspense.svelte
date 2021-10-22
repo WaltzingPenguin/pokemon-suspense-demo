@@ -1,7 +1,7 @@
 <script lang="ts">
 import debounce from './debounce'
 import { createEventDispatcher } from 'svelte'
-import { derived, writable } from 'svelte/store'
+import { derived, writable, readable } from 'svelte/store'
 import type { Readable } from 'svelte/store'
 
 import { setContext } from './suspense-context'
@@ -12,9 +12,9 @@ import {
 } from './suspense-list-context'
 
 const dispatch = createEventDispatcher()
-const is_browser = (typeof window !== 'undefined')
+const isBrowser = (typeof window !== 'undefined')
 
-const { isReady: list_state, onFinished } = getListContext()
+const { isReady: listState, onFinished } = getListContext()
 setListContext()
 
 type PendingStore = Readable<{
@@ -35,20 +35,23 @@ const dispatchLoaded = debounce(() => {
     onFinished()
   }
 })
-$: loading = !is_browser || $pending_values.some(item => !item.data)
+$: loading = !isBrowser || $pending_values.some(item => !item.data)
 $: !loading && !error && dispatchLoaded()
 
 setContext(suspend)
 
-function suspend<T> (data: Readable<T> | Promise<T>, error?: Readable<Error>) {
+function suspend<T> (data: Readable<T | undefined>, error?: Readable<Error | undefined>): Readable<T | undefined>
+function suspend<T> (data: Promise<T>): Promise<T>
+function suspend<T> (data: Readable<T | undefined> | Promise<T>, error?: Readable<Error | undefined>) {
   if ('subscribe' in data) {
+    error = error || readable(undefined)
     return suspendStore(data, error)
   } else {
     return suspendPromise(data)
   }
 }
 
-function suspendStore<T> (data_store: Readable<T>, error_store: Readable<Error>) {
+function suspendStore<T> (data_store: Readable<T | undefined>, error_store: Readable<Error | undefined>) {
   const store = derived([data_store, error_store], ([data, error]) => {
     if (data !== undefined) {
       return { data }
@@ -75,18 +78,18 @@ function suspendPromise<T> (promise: Promise<T>) {
 </script>
 
 {#if error}
-  {#if $list_state !== LIST_STATUS.HIDDEN}
+  {#if $listState !== LIST_STATUS.HIDDEN}
     <slot name="error" { error }></slot>
   {/if}
 {:else}
-  {#if $list_state === LIST_STATUS.HIDDEN}
+  {#if $listState === LIST_STATUS.HIDDEN}
     <!-- Hidden -->
-  {:else if loading || $list_state === LIST_STATUS.LOADING}
+  {:else if loading || $listState === LIST_STATUS.LOADING}
     <slot name="loading"></slot>
   {/if}
 
-  {#if is_browser}
-    <div hidden={ loading || $list_state !== LIST_STATUS.READY }>
+  {#if isBrowser}
+    <div hidden={ loading || $listState !== LIST_STATUS.READY }>
       <slot { suspend } />	
     </div>
   {/if}
