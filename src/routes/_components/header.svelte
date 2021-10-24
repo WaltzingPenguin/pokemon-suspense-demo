@@ -26,6 +26,7 @@ $: pokemon = getPokemon(url)
 section {
   align-items: center;
   display: grid;
+  grid-gap: 0 1em;
   grid-template: "title image" "description description" / 1fr 96px;
 }
 @media (min-width: 35rem) {
