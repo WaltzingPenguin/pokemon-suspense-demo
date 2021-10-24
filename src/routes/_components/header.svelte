@@ -1,11 +1,11 @@
 <script lang="ts">
-import { getVariety, getPokemon } from '../_data'
-import SuspendImage from './suspend-image.svelte'
+import { Suspense } from '@svelte-drama/suspense'
+import { getPokemon } from '$lib/data'
+import Image from './image.svelte'
 
 export let url: string
 
 $: pokemon = getPokemon(url)
-$: variety = getVariety($pokemon?.default_variety)
 </script>
 
 <svelte:head>
@@ -14,8 +14,12 @@ $: variety = getVariety($pokemon?.default_variety)
 
 <section>
   <h1>{ $pokemon?.name }</h1>
-  <SuspendImage alt="" src={ $variety?.image } />
-  <p>{ $pokemon?.description }</p>  
+  <div>
+    <Suspense>
+      <Image { url } />
+    </Suspense>
+  </div>
+  <p>{ $pokemon?.description }</p>
 </section>
 
 <style>
@@ -30,8 +34,13 @@ section {
   }
 }
 h1 {
+  align-self: center;
   grid-area: title;
   margin: 0;
+}
+div {
+  align-self: flex-start;
+  grid-area: image;
 }
 p {
   grid-area: description;

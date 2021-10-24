@@ -1,6 +1,6 @@
 {
   "name": "pokemon-suspense",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^1.0.0-next.21",
-    "@sveltejs/kit": "next",
+    "@sveltejs/kit": "^1.0.0-next.189",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "@typescript-eslint/parser": "^4.31.1",
     "eslint": "^7.32.0",
@@ -22,5 +22,9 @@
     "tslib": "^2.3.1",
     "typescript": "^4.4.3"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "@svelte-drama/suspense": "^0.3.3",
+    "@svelte-drama/swr": "^0.1.0"
+  }
 }

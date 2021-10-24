@@ -1,8 +1,10 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@svelte-drama/suspense': ^0.3.3
+  '@svelte-drama/swr': ^0.1.0
   '@sveltejs/adapter-static': ^1.0.0-next.21
-  '@sveltejs/kit': next
+  '@sveltejs/kit': ^1.0.0-next.189
   '@typescript-eslint/eslint-plugin': ^4.31.1
   '@typescript-eslint/parser': ^4.31.1
   eslint: ^7.32.0
@@ -13,9 +15,13 @@ specifiers:
   tslib: ^2.3.1
   typescript: ^4.4.3
 
+dependencies:
+  '@svelte-drama/suspense': 0.3.3_svelte@3.44.0
+  '@svelte-drama/swr': 0.1.0_66575b4a12020f386026dada8525ce0b
+
 devDependencies:
   '@sveltejs/adapter-static': 1.0.0-next.21
-  '@sveltejs/kit': 1.0.0-next.186_svelte@3.44.0
+  '@sveltejs/kit': 1.0.0-next.189_svelte@3.44.0
   '@typescript-eslint/eslint-plugin': 4.33.0_cc617358c89d3f38c52462f6d809db4c
   '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.4.4
   eslint: 7.32.0
@@ -109,12 +115,30 @@ packages:
       picomatch: 2.3.0
     dev: true
 
+  /@svelte-drama/suspense/0.3.3_svelte@3.44.0:
+    resolution: {integrity: sha512-nMnm8ey5Go0n+oaGRgNBuPk7PyEDNqPMGcRXLGNtrH19h7Ih+i5FQnbXBLhd1baKvr9L/i0UTvFLJbjAlyYTMg==}
+    peerDependencies:
+      svelte: ^3.44.0
+    dependencies:
+      svelte: 3.44.0
+    dev: false
+
+  /@svelte-drama/swr/0.1.0_66575b4a12020f386026dada8525ce0b:
+    resolution: {integrity: sha512-y0mgi/t8QErB9KqdE/z4o0FFldS9X1yUpvjGwBlrFbJkqDMLXxCUcNuq89SRwDyRgl0Ne3SDoxb2vlWopmHrKA==}
+    peerDependencies:
+      '@svelte-drama/suspense': ^0.3.2
+      svelte: ^3.42.6
+    dependencies:
+      '@svelte-drama/suspense': 0.3.3_svelte@3.44.0
+      svelte: 3.44.0
+    dev: false
+
   /@sveltejs/adapter-static/1.0.0-next.21:
     resolution: {integrity: sha512-B4+QoUVAaANKx+mHntG8SqF45zbj3Ct4Akg/cGauo6COyfKZRhO5OsMa+wPuT2TKJBZC4eEDK0p+p9nyQBkxKQ==}
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.186_svelte@3.44.0:
-    resolution: {integrity: sha512-LFv2q2cToreUcGp0B+5uVfu0qMvQiw3hsyELnUwxPP/lpUbcmYjgQmwivjRNTdudCqZt7ng3Ehy7UDILbBhExQ==}
+  /@sveltejs/kit/1.0.0-next.189_svelte@3.44.0:
+    resolution: {integrity: sha512-Vmd6Oq/fI5M7LEJjXd+AOoTy7ICNT7+4rAMJttyeMjqmRhQ0i5h+NgBoVOQE1L3fwUNZtdW2ucUm+MMa9ZPTpw==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:
@@ -160,8 +184,8 @@ packages:
     resolution: {integrity: sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==}
     dev: true
 
-  /@types/node/16.11.1:
-    resolution: {integrity: sha512-PYGcJHL9mwl1Ek3PLiYgyEKtwTMmkMw4vbiyz/ps3pfdRYLVv+SN7qHVAImrjdAXxgluDEw6Ph4lyv+m9UpRmA==}
+  /@types/node/16.11.4:
+    resolution: {integrity: sha512-TMgXmy0v2xWyuCSCJM6NCna2snndD8yvQF67J29ipdzMcsPa9u+o0tjF5+EQNdhcuZplYuouYqpc4zcd5I6amQ==}
     dev: true
 
   /@types/pug/2.0.5:
@@ -171,7 +195,7 @@ packages:
   /@types/sass/1.16.1:
     resolution: {integrity: sha512-iZUcRrGuz/Tbg3loODpW7vrQJkUtpY2fFSf4ELqqkApcS2TkZ1msk7ie8iZPB86lDOP8QOTTmuvWjc5S0R9OjQ==}
     dependencies:
-      '@types/node': 16.11.1
+      '@types/node': 16.11.4
     dev: true
 
   /@typescript-eslint/eslint-plugin/4.33.0_cc617358c89d3f38c52462f6d809db4c:
@@ -1197,8 +1221,8 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /picocolors/0.2.1:
-    resolution: {integrity: sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==}
+  /picocolors/1.0.0:
+    resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
     dev: true
 
   /picomatch/2.3.0:
@@ -1206,12 +1230,12 @@ packages:
     engines: {node: '>=8.6'}
     dev: true
 
-  /postcss/8.3.9:
-    resolution: {integrity: sha512-f/ZFyAKh9Dnqytx5X62jgjhhzttjZS7hMsohcI7HEI5tjELX/HxCy3EFhsRxyzGvrzFF+82XPvCS8T9TFleVJw==}
+  /postcss/8.3.11:
+    resolution: {integrity: sha512-hCmlUAIlUiav8Xdqw3Io4LcpA1DOt7h3LSTAC4G6JGHFFaWzI6qvFt9oilvl8BmkbBRX1IhM90ZAmpk68zccQA==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.1.30
-      picocolors: 0.2.1
+      picocolors: 1.0.0
       source-map-js: 0.6.2
     dev: true
 
@@ -1599,7 +1623,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.13.8
-      postcss: 8.3.9
+      postcss: 8.3.11
       resolve: 1.20.0
       rollup: 2.58.0
     optionalDependencies:

@@ -1,10 +1,10 @@
 <script>
-import { Suspense } from '$lib/suspsense'
+import { Suspense } from '@svelte-drama/suspense'
 
-import Image from './_components/image.svelte'
+import Link from './_components/link.svelte'
 import LoadingCircle from './_components/loading-circle.svelte';
 
-const favorites = [1, 4, 25, 133, 129, 79]
+const favorites = [1, 4, 25, 133, 129, 79, 38]
 </script>
 
 <svelte:head>
@@ -22,7 +22,7 @@ const favorites = [1, 4, 25, 133, 129, 79]
   <ul>
     {#each favorites as id}
       <li>
-        <Image url="https://pokeapi.co/api/v2/pokemon-species/{ id }/" />
+        <Link url="https://pokeapi.co/api/v2/pokemon-species/{ id }/" />
       </li>
     {/each}
   </ul>

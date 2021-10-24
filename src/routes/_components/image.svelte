@@ -1,40 +1,34 @@
 <script lang="ts">
-import { getVariety, getPokemon } from '../_data'
-import SuspendImage from './suspend-image.svelte'
+import { getPokemon, getVariety } from '$lib/data'
+import { createSuspense } from "@svelte-drama/suspense"
+import { writable } from 'svelte/store'
+const suspend = createSuspense()
 
 export let url: string
-
 $: pokemon = getPokemon(url)
 $: variety = getVariety($pokemon?.default_variety)
+$: prefetchImage($variety?.image)
 
-function getId (url: string) {
-  return url.split('https://pokeapi.co/api/v2/pokemon-species/')[1]
+function prefetchImage (src: string) {
+  if (!src) return
+
+  const image_loaded = suspend(writable<boolean>(undefined))
+  const onLoad = () => image_loaded.set(true)
+
+  const img = new Image()
+  // Use onLoad for both load and error.
+  // Not willing to go to an error screen over one broken image.
+  img.onload = onLoad
+  img.onerror = onLoad
+  img.src = src
 }
 </script>
 
-<a href="/{ getId(url) }">
-  <figure>
-    <SuspendImage alt="" src={ $variety?.image } />
-    <figcaption>{ $pokemon?.name }</figcaption>
-  </figure>
-</a>
+<img alt=""  src={ $variety?.image } />
 
 <style>
-a {
-  background-color: #FFF;
-  border: 1px solid #EEE;
-  color: inherit;
-  display: block;
-  text-decoration: inherit;
-}
-a:focus,
-a:hover {
-  background-color: #F1F1F4;
-  border-color: #CCD;
-}
-figure {
-  margin: 0;
-  padding: .5em 1em 1em;
-  text-align: center;
+img {
+  height: 96px;
+  width: 96px;
 }
 </style>

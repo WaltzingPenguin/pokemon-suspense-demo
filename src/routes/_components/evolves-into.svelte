@@ -1,6 +1,6 @@
 <script lang="ts">
-import Image from './image.svelte'
-import { getEvolutions, getPokemon } from '../_data'
+import Link from './link.svelte'
+import { getEvolutions, getPokemon } from '$lib/data'
 
 export let url: string
 
@@ -14,7 +14,7 @@ $: evolution = getEvolutions($pokemon?.evolution_chain, $pokemon?.id)
     <ul>
       {#each $evolution as url}
         <li>
-          <Image { url } />
+          <Link { url } />
         </li>
       {/each}
     </ul>  

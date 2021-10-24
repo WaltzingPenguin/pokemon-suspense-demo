@@ -1,6 +1,6 @@
 <script lang="ts">
-import Image from './image.svelte'
-import { getPokemon } from '../_data'
+import Link from './link.svelte'
+import { getPokemon } from '$lib/data'
 
 export let url: string
 
@@ -10,7 +10,7 @@ $: pokemon = getPokemon(url)
 {#if $pokemon?.evolves_from}
   <h2>Evolves From</h2>
   <div>
-    <Image url={ $pokemon.evolves_from } />
+    <Link url={ $pokemon.evolves_from } />
   </div>
 {/if}
 
