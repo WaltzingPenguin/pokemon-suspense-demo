@@ -10,7 +10,7 @@ $: evolution = getEvolutions($pokemon?.evolution_chain_id, $pokemon?.id)
 
 {#if $evolution?.length}
   <section>
-    <h2>Evoles Into</h2>
+    <h2>Evolves Into</h2>
     <ul>
       {#each $evolution as id}
         <li>
