@@ -8,8 +8,7 @@ import LoadingCircle from './_components/loading-circle.svelte'
 import LoadingDots from './_components/loading-dots.svelte'
 import { page } from '$app/stores'
 
-$: id = $page.params.id
-$: url = `https://pokeapi.co/api/v2/pokemon-species/${ id }/`
+$: id = parseInt($page.params.id, 10)
 </script>
 
 <p>
@@ -18,19 +17,19 @@ $: url = `https://pokeapi.co/api/v2/pokemon-species/${ id }/`
 
 <SuspenseList collapse>
   <Suspense>
-    <Header { url } />
+    <Header { id } />
     <LoadingCircle slot="loading" />
     <ErrorDisplay slot="error" />
   </Suspense>
 
   <Suspense>
-    <EvolvesFrom { url } />
+    <EvolvesFrom { id } />
     <LoadingDots slot="loading" />
     <ErrorDisplay slot="error" />
   </Suspense>
 
   <Suspense>
-    <EvolvesInto { url } />
+    <EvolvesInto { id } />
     <LoadingDots slot="loading" />
     <ErrorDisplay slot="error" />
   </Suspense> 

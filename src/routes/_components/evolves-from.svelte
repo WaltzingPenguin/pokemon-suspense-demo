@@ -2,15 +2,15 @@
 import Link from './link.svelte'
 import { getPokemon } from '$lib/data'
 
-export let url: string
+export let id: number
 
-$: pokemon = getPokemon(url)
+$: pokemon = getPokemon(id)
 </script>
 
 {#if $pokemon?.evolves_from}
   <h2>Evolves From</h2>
   <div>
-    <Link url={ $pokemon.evolves_from } />
+    <Link id={ $pokemon.evolves_from } />
   </div>
 {/if}
 

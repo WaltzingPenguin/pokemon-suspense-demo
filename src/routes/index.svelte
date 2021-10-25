@@ -22,7 +22,7 @@ const favorites = [1, 4, 25, 133, 129, 79, 38]
   <ul>
     {#each favorites as id}
       <li>
-        <Link url="https://pokeapi.co/api/v2/pokemon-species/{ id }/" />
+        <Link { id } />
       </li>
     {/each}
   </ul>

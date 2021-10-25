@@ -2,19 +2,19 @@
 import Link from './link.svelte'
 import { getEvolutions, getPokemon } from '$lib/data'
 
-export let url: string
+export let id: number
 
-$: pokemon = getPokemon(url)
-$: evolution = getEvolutions($pokemon?.evolution_chain, $pokemon?.id)
+$: pokemon = getPokemon(id)
+$: evolution = getEvolutions($pokemon?.evolution_chain_id, $pokemon?.id)
 </script>
 
 {#if $evolution?.length}
   <section>
     <h2>Evoles Into</h2>
     <ul>
-      {#each $evolution as url}
+      {#each $evolution as id}
         <li>
-          <Link { url } />
+          <Link { id } />
         </li>
       {/each}
     </ul>  

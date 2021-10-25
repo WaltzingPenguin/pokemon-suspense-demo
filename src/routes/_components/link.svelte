@@ -2,18 +2,14 @@
 import { getPokemon } from '$lib/data'
 import Image from './image.svelte'
 
-export let url: string
+export let id: number
 
-$: pokemon = getPokemon(url)
-
-function getId (url: string) {
-  return url.split('https://pokeapi.co/api/v2/pokemon-species/')[1]
-}
+$: pokemon = getPokemon(id)
 </script>
 
-<a href="/{ getId(url) }">
+<a href="/{ id }">
   <figure>
-    <Image { url } />
+    <Image { id } />
     <figcaption>{ $pokemon?.name }</figcaption>
   </figure>
 </a>

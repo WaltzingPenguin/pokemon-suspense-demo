@@ -3,9 +3,9 @@ import { Suspense } from '@svelte-drama/suspense'
 import { getPokemon } from '$lib/data'
 import Image from './image.svelte'
 
-export let url: string
+export let id: number
 
-$: pokemon = getPokemon(url)
+$: pokemon = getPokemon(id)
 </script>
 
 <svelte:head>
@@ -16,7 +16,7 @@ $: pokemon = getPokemon(url)
   <h1>{ $pokemon?.name }</h1>
   <div>
     <Suspense>
-      <Image { url } />
+      <Image {id} />
     </Suspense>
   </div>
   <p>{ $pokemon?.description }</p>
